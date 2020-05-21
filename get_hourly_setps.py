@@ -13,22 +13,26 @@ def main():
     
     count = 0
     steps = 0
+    by_quarter_list = []
     for data in datasets:
         time = data.get('time')
         value = data.get('value')
+        
 
         if count % 4 == 0:
             if count != 0:
-                #print(f"{time} : {steps}")
-                print(f"{steps}")
+                print(f"{time} : {steps}\t {by_quarter_list}")
+                by_quarter_list = []
             steps = int(value)
+            by_quarter_list.append(value)
         else:
             steps = steps + int(value)
+            by_quarter_list.append(value)
         
         count = count + 1
         if count >= len(datasets):
-            #print(f"{time} : {steps}")
-            print(f"{steps}")
+            print(f"{time} : {steps}\t {by_quarter_list}")
+            by_quarter_list = []
 
 
     #print(datasets)
