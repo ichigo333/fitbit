@@ -4,7 +4,14 @@ def formatList(by_quarter_list):
     if len(by_quarter_list) == 4:
         return f"{by_quarter_list[0]}\t{by_quarter_list[1]}\t{by_quarter_list[2]}\t{by_quarter_list[3]}"
     else:
-        return "no list"
+        return "no list \t\t"
+
+def graphDots(steps):
+    numberOfDots = steps / 100
+    dots = ""
+    for i in range(0,int(numberOfDots)):
+        dots = dots + "."
+    return dots
 
 
 def main():
@@ -20,6 +27,7 @@ def main():
     
     count = 0
     steps = 0
+    stepsTotal = 0
     by_quarter_list = []
 
     print("")
@@ -29,11 +37,11 @@ def main():
     for data in datasets:
         time = data.get('time')
         value = data.get('value')
-        dots = "......."
 
         if count % 4 == 0:
             if count != 0:
-                print(f"{time} | {steps}\t | {formatList(by_quarter_list)}\t | \t {dots}")
+                print(f"{time} | {steps}\t | {formatList(by_quarter_list)}\t | \t {graphDots(steps)}")
+                stepsTotal = stepsTotal + steps
                 by_quarter_list = []
             steps = int(value)
             by_quarter_list.append(value)
@@ -43,8 +51,12 @@ def main():
         
         count = count + 1
         if count >= len(datasets):
-            print(f"{time} | {steps}\t | {formatList(by_quarter_list)}\t | \t {dots}")
+            print(f"{time} | {steps}\t | {formatList(by_quarter_list)}\t | \t {graphDots(steps)}")
+            stepsTotal = stepsTotal + steps
             by_quarter_list = []
+
+    print("")
+    print(f"Total : {stepsTotal}")
 
 
 if __name__ == "__main__":
