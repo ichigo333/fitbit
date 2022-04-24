@@ -31,6 +31,7 @@ def main():
     by_quarter_list = []
 
     print("")
+    print(f"Date: {date}")
     print("Time     | Total | By 15min \t\t\t | \t Graph")
     print("----------------------------------------------------------------")
 
