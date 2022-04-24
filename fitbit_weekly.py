@@ -1,8 +1,22 @@
-import json, requests
+import json, requests, datetime, os
 
 def main():
-    datasets = getDataSets()
+    config = getConfig('weeklyConfig.json')
+    datasets = getDataSets(config)
     printData(datasets)
+
+def getConfig(path):
+  location = os.path.dirname(os.path.abspath(__file__))
+  path = os.path.join(location, path)
+  with open(path) as jsonFile:
+    config = json.load(jsonFile)
+  return config
+
+def getWeekDateList(start_date):
+    date_list = []
+    for day_num in range(7):
+        date_list.append((start_date + datetime.timedelta(days=day_num)).strftime('%Y-%m-%d'))
+    return date_list
 
 def printData(datasets):
     count = 0
@@ -25,12 +39,12 @@ def printData(datasets):
         steps = 0
         count = 0
 
-def getDataSets():
-    auth_token = ""
+def getDataSets(config):
     payload = {'accept': 'application/x-www-form-urlencoded'}
-    headers = {'authorization': 'Bearer ' + auth_token}
+    headers = {'authorization': 'Bearer ' + config['token']}
     
-    dates = ["2022-04-18","2022-04-19","2022-04-20","2022-04-21","2022-04-22","2022-04-23","2022-04-24"]
+    dates = getWeekDateList(datetime.date(config['year'],config['month'],config['day']))
+    print(dates)
     datasets = [] 
 
     for date in dates:
