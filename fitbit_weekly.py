@@ -1,8 +1,20 @@
-import json, requests, datetime, os
+import json, requests, datetime, os, sys
+sys.path.append("..\\python-fitbit-master")
+import fitbit
+import gather_keys_oauth2
+
 
 def main():
+    auth_server = gather_keys_oauth2.OAuth2Server('', '')
+    auth_server.browser_authorize()
+    
+    print('TOKEN\n=====\n')
+    for key, value in auth_server.fitbit.client.session.token.items():
+        if key == "access_token":
+            access_token = value
+
     config = getConfig('weeklyConfig.json')
-    datasets = getDataSets(config)
+    datasets = getDataSets(config, access_token)
     printData(datasets)
 
 def getConfig(path):
@@ -39,9 +51,9 @@ def printData(datasets):
         steps = 0
         count = 0
 
-def getDataSets(config):
+def getDataSets(config, access_token):
     payload = {'accept': 'application/x-www-form-urlencoded'}
-    headers = {'authorization': 'Bearer ' + config['token']}
+    headers = {'authorization': 'Bearer ' + access_token}
     
     dates = getWeekDateList(datetime.date(config['year'],config['month'],config['day']))
     print(dates)
