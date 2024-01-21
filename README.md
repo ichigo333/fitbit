@@ -1,6 +1,6 @@
 ## fitbit_weekly
 
-- this program prints weekly step count in 15 min increments
+- this program prints weekly step count in one hour increments
 - for example
 ```
 ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05', '2024-01-06', '2024-01-07']
@@ -12,6 +12,7 @@
 0,6,60,5,0,0,25,12,0,743,1150,953,551,232,36,34,1253,1289,196,475,236,114,72,0
 123,262,0,0,0,0,104,8,9,678,824,453,702,737,307,282,484,241,330,787,402,203,101,324
 ```
+- each line represents a day
 - this can easily be imported into excel or other program for analysis 
 
 
